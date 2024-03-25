@@ -54,18 +54,27 @@
                 <!-- верхняя навигация между Users table and new user -->
                 <nav class="nav nav-tabs" id="nav-tab" role="tablist">
 
-                    <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab"
-                       aria-controls="nav-home" aria-selected="true">Users table</a>
+                    <a class="nav-link active"
+                       id="nav-home-tab"
+                       data-bs-toggle="tab"
+                       href="#nav-home"
+                       role="tab"
+                       aria-controls="nav-home"
+                       aria-selected="true">Users table</a>
 
-                    <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab"
-                       aria-controls="nav-profile" aria-selected="false">New User</a>
+                    <a class="nav-link"
+                       id="nav-profile-tab"
+                       data-bs-toggle="tab"
+                       href="#nav-profile"
+                       role="tab"
+                       aria-controls="nav-profile"
+                       aria-selected="false">New User</a>
                 </nav>
 
                 <div class="tab-content" id="nav-tabContent">
                     <!-- закладка Users table -->
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div class="card">
-
                             <div class="card-header">
                                 <h5 class="card-title" style="margin: 5px 0">All users</h5>
                             </div>
@@ -89,133 +98,7 @@
                                         <th scope="col">Delete</th>
                                     </tr>
                                     </thead>
-
-                                    <tbody>
-                                    <tr th:each="oneUser : ${users}">
-
-                                        <td th:text="${oneUser.getId()}"></td>
-                                        <td th:text="${oneUser.getUsername()}"></td>
-                                        <td th:text="${oneUser.getFirstName()}"></td>
-                                        <td th:text="${oneUser.getLastName()}"></td>
-                                        <td th:text="${oneUser.getAge()}"></td>
-                                        <td th:text="${oneUser.getEmail()}"></td>
-
-                                        <td>
-                                            <th:block th:each="role : ${oneUser.getRoles()}"
-                                                      th:text="${role.getName().replace('ROLE_', '')+ ' '}">
-                                            </th:block>
-                                        </td>
-
-                                        <td><button type="button" class="btn btn-info text-white" data-bs-toggle="modal"
-                                                    th:data-bs-target="${'#edit' + oneUser.getId()}">Edit</button></td>
-
-                                        <td><button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                    th:data-bs-target="${'#delete' + oneUser.getId()}">Delete</button></td>
-
-                                        <!--------------------- модальное окно Edit (работает) ------------------------>
-                                        <div class="modal fade" th:id="${'edit' + oneUser.getId()}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <form th:method="put" th:action="@{/adminPanel/update(id=${oneUser.getId()})}" th:object="${oneUser}">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-
-                                                        <div class="modal-body" style="display: flex; align-items: center; justify-content: center">
-                                                            <div style="width: 45%; display: flex; flex-direction: column; align-items: center; justify-content: center">
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">ID</h6>
-                                                                <input type="text"  readonly th:name="id" th:value="${oneUser.id}" class="form-control" placeholder="ID">
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">Username</h6>
-                                                                <input type="text" th:name="username" th:value="${oneUser.username}" class="form-control" placeholder="Username">
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">FirstName</h6>
-                                                                <input type="text" th:name="firstName" th:value="${oneUser.firstName}" class="form-control" placeholder="FirstName">
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">LastName</h6>
-                                                                <input type="text" th:name="lastName" th:value="${oneUser.lastName}" class="form-control" placeholder="LastName">
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">Age</h6>
-                                                                <input type="number" th:name="age" th:value="${oneUser.age}" class="form-control" placeholder="Age">
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">Email</h6>
-                                                                <input type="email" th:name="email" th:value="${oneUser.email}" class="form-control" placeholder="Email">
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">Password</h6>
-                                                                <input type="password" th:name="password" th:value="${oneUser.password}" class="form-control" placeholder="Password">
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">Role</h6>
-
-                                                                <select multiple th:name="roles" th:value="${oneUser.roles}" size="2" class="form-control" style="margin-bottom: 20px">
-                                                                    <option th:each="role : ${allRoles}" th:value="${role.getId()}" th:text="${role.getName().replace('ROLE_', '')}"></option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Edit</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!-------------------- модальное окно Delete (работает) ----------------------->
-                                        <div class="modal fade" th:id="${'delete' + oneUser.getId()}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                            <form th:action="@{/adminPanel/delete(id=${oneUser.getId()})}"
-                                                  th:method="DELETE">
-
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="deleteModalLabel">Delete user</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-
-                                                        <div class="modal-body" style="display: flex; align-items: center; justify-content: center">
-                                                            <div style="width: 45%; display: flex; flex-direction: column; align-items: center; justify-content: center">
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">ID</h6>
-                                                                <input type="text" th:name="id" th:value="${oneUser.id}" class="form-control" placeholder="ID" readonly>
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">Username</h6>
-                                                                <input type="text" th:name="username" th:value="${oneUser.username}" class="form-control" placeholder="Username" readonly>
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">FirstName</h6>
-                                                                <input type="text" th:name="firstName" th:value="${oneUser.firstName}" class="form-control" placeholder="FirstName" readonly>
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">LastName</h6>
-                                                                <input type="text" th:name="lastName" th:value="${oneUser.lastName}" class="form-control" placeholder="LastName" readonly>
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">Age</h6>
-                                                                <input type="number" th:name="age" th:value="${oneUser.age}" class="form-control" placeholder="Age" readonly>
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">Email</h6>
-                                                                <input type="email" th:name="email" th:value="${oneUser.email}" class="form-control" placeholder="Email" readonly>
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">Password</h6>
-                                                                <input type="password" th:name="password" th:value="${oneUser.password}" class="form-control" placeholder="Password" readonly>
-
-                                                                <h6 class="card-title" style="margin: 5px 0; text-align: center">Role</h6>
-
-                                                                <select multiple th:name="roles" th:value="${oneUser.roles}" size="2" class="form-control" style="margin-bottom: 20px" readonly>
-                                                                    <option th:each="role : ${allRoles}" th:value="${role.getId()}" th:text="${role.getName().replace('ROLE_', '')}"></option>
-                                                                </select>
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </form>
-                                        </div>
-                                    </tr>
+                                    <tbody id="cardsUsers">
                                     </tbody>
                                 </table>
                             </div>
@@ -275,5 +158,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+<script src="../static/allUsers.js"></script>
+
 </body>
 </html>
