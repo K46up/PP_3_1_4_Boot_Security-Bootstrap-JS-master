@@ -1,14 +1,15 @@
-const API = "/adminApi/users";
-const card = document.querySelector('#cardsUsers');
-let newUser = "";
 
+const API = "/adminApi/users";
+const card = $('#cardsUsers');
+getUsers();
 function getUsers() {
+    card.empty();
     fetch(API)
         .then((res) => res.json())
-        .then((users) => {
-            users.map((user) => {
-                let rolesStr = user.roles.map(role => role.name.replace('ROLE_', '')).join(', ');
-                return (newUser +=
+        .then(js => {
+            js.forEach(user => {
+                const rolesStr = user.roles.map(role => role.name.replace('ROLE_', '')).join(', ');
+                const users = $(
                     `<tr>
                         <td class="pt-3" >${user.id}</td>
                         <td class="pt-3" >${user.username}</td>
@@ -39,26 +40,11 @@ function getUsers() {
                                 Delete
                             </button>
                         </td>
-                        
-                    </tr>
- 
-                `);
+                    </tr>`
+                );
+                card.append(users);
             });
-            card.innerHTML = newUser;
         });
 }
 
-getUsers();
-/*
-<td>
-    <button type="button" className="btn btn-info" data-toggle="modal" data-target="#edit"
-            onClick="editModal(${user.id})">
-        Edit
-    </button>
-</td>
-<td>
-    <button type="button" className="btn btn-danger" data-toggle="modal" data-target="#delete"
-            onClick="deleteModal(${user.id})">
-        Delete
-    </button>
-</td>*/
+export default getUsers

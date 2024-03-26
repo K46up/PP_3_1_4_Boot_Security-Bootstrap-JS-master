@@ -22,7 +22,7 @@ public class RestFullController {
         this.userService = userService;
         this.roleService = roleService;
     }
-    @GetMapping("/users")                                                                                  //работает
+    @GetMapping("/users")                                                                               //работает+js
     public ResponseEntity<List<User>> printUsers() {
         List<User> userList = (List<User>) userService.findAll();
         return ResponseEntity.ok(userList);
@@ -34,7 +34,7 @@ public class RestFullController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("/userSave")                                                                              //работает
+    @PostMapping("/userSave")                                                                           //работает+js
     public ResponseEntity<HttpStatus> create(@RequestBody User user) {
         userService.save(user);
         return ResponseEntity.ok(HttpStatus.OK);
