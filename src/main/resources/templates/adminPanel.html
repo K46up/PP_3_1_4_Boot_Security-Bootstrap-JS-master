@@ -12,19 +12,22 @@
         <nav class="navbar navbar-light bg-dark" style="height: 7vh">
             <div class="container-fluid">
                 <div>
+
                     <div class="text-white me-auto d-inline-block">
-                        <strong class="text-white" style="font-size: 1.5em" th:utext="${localUser.getUsername()}">
-                            Username@mail.ru
-                        </strong>
+                        <span class="text-white" style="font-size: 1.5em" id="emailCurrentUser"></span>
                     </div>
+
+
                     <div class="text-white me-auto d-inline-block">
                         <span class="text-white" style="font-size: 1.5em">with roles: </span>
                     </div>
-                    <div class="text-white me-auto d-inline-block" th:each="role : ${localUser.getRoles()}">
-                        <span class="text-white" style="font-size: 1.5em"
-                              th:text="${role.getName().replace('ROLE_', '')}">
-                        </span>
+
+
+                    <div class="text-white me-auto d-inline-block" ><!--th:each="role : ${localUser.getRoles()}"-->
+                        <span class="text-white" style="font-size: 1.5em" id="roleCurrentUser"></span>
                     </div>
+
+
                 </div>
                 <a class="navbar-brand text-white-50 fs-20" href="/logout">Logout</a>
             </div>
@@ -191,6 +194,8 @@
 
 <script type="module" src="../static/allUsers.js"></script>
 <script type="module" src="../static/userSave.js"></script>
+<script type="module" src="../static/userGet.js"></script>
+
 
 </body>
 </html>

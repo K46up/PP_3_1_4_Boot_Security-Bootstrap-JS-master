@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml"
       lang="ru">
 <head>
     <title>UserPage</title>
@@ -11,19 +11,21 @@
         <nav class="navbar navbar-light bg-dark" style="height: 7vh">
             <div class="container-fluid">
                 <div>
+
                     <div class="text-white me-auto d-inline-block">
-                        <strong class="text-white" style="font-size: 1.5em" th:utext="${user.getUsername()}">
-                            Username@mail.ru
-                        </strong>
+                        <span class="text-white" style="font-size: 1.5em" id="emailCurrentUser"></span>
                     </div>
+
+
                     <div class="text-white me-auto d-inline-block">
                         <span class="text-white" style="font-size: 1.5em">with roles: </span>
                     </div>
-                    <div class="text-white me-auto d-inline-block" th:each="role : ${user.getRoles()}">
-                        <span class="text-white" style="font-size: 1.5em"
-                              th:text="${role.getName().replace('ROLE_', '')}">
-                        </span>
+
+
+                    <div class="text-white me-auto d-inline-block">
+                        <span class="text-white" style="font-size: 1.5em" id="roleCurrentUser"></span>
                     </div>
+
                 </div>
                 <a class="navbar-brand text-white-50 fs-20" href="/logout">Logout</a>
             </div>
@@ -31,19 +33,26 @@
     </header>
     <!-- основной контейнер -->
     <div class="d-flex align-items-start" style=" height: 93vh; background: #f0f0f0;">
+
+
         <!-- боковая навигация между Admin panel и user page -->
+
         <div class="col-md-3 col-xl-2 py-2" style="padding-top: 15px; flex: 1 6; height: 100%; background: white">
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <div th:each="rol : ${user.getRoles()}">
-                        <a th:if="${rol.toString().contains('ROLE_ADMIN')}" href="/adminPanel" class="nav-link" aria-current="page">Admin</a>
+
+                    <div id="btnAdmin">
+                        <a href="/adminPanel" class="nav-link" aria-current="page">Admin</a>
                     </div>
+
                 </li>
                 <li class="nav-item">
                     <a href="/user" class="nav-link active" aria-current="page">User</a>
                 </li>
             </ul>
         </div>
+
+
         <div class="tab-content" id="v-pills-tabContent" style="padding: 15px 25px 15px 25px; flex: 5 6; height: 100%;">
             <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel" aria-labelledby="v-pills-admin-tab">
                 <h1>User information-page</h1>
@@ -74,21 +83,7 @@
                                     </tr>
                                     </thead>
 
-                                    <tbody>
-                                    <tr>
-                                        <td th:text="${user.getId()}"></td>
-                                        <td th:text="${user.getUsername()}"></td>
-                                        <td th:text="${user.getFirstName()}"></td>
-                                        <td th:text="${user.getLastName()}"></td>
-                                        <td th:text="${user.getAge()}"></td>
-                                        <td th:text="${user.getEmail()}"></td>
-                                        <td>
-                                            <th:block th:each="role : ${user.getRoles()}"
-                                                      th:text="${role.getName().replace('ROLE_', '')+ ' '}">
-                                            </th:block>
-                                        </td>
-                                    </tr>
-                                    </tbody>
+                                    <tbody id="oneUser"></tbody>
                                 </table>
                             </div>
                         </div>
@@ -97,6 +92,11 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script type="module" src="../static/allUsers.js"></script>
+    <script type="module" src="../static/userSave.js"></script>
+    <script type="module" src="../static/userGet.js"></script>
 
 </body>
 </html>
