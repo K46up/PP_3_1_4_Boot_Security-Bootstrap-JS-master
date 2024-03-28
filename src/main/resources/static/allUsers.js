@@ -1,3 +1,4 @@
+'use strict';
 
 const API = "/adminApi/users";
 const card = $('#cardsUsers');
@@ -46,5 +47,3 @@ function getUsers() {
             });
         });
 }
-
-export default getUsers

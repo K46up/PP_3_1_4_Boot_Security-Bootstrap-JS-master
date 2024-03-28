@@ -8,31 +8,30 @@
 </head>
 <body>
 <!--------------------------------------------------------Хедер-------------------------------------------------------->
-    <header>
-        <nav class="navbar navbar-light bg-dark" style="height: 7vh">
-            <div class="container-fluid">
-                <div>
+<header>
+    <nav class="navbar navbar-light bg-dark" style="height: 7vh">
+        <div class="container-fluid">
+            <div>
 
-                    <div class="text-white me-auto d-inline-block">
-                        <span class="text-white" style="font-size: 1.5em" id="emailCurrentUser"></span>
-                    </div>
-
-
-                    <div class="text-white me-auto d-inline-block">
-                        <span class="text-white" style="font-size: 1.5em">with roles: </span>
-                    </div>
-
-
-                    <div class="text-white me-auto d-inline-block" ><!--th:each="role : ${localUser.getRoles()}"-->
-                        <span class="text-white" style="font-size: 1.5em" id="roleCurrentUser"></span>
-                    </div>
-
-
+                <div class="text-white me-auto d-inline-block">
+                    <span class="text-white" style="font-size: 1.5em" id="emailCurrentUser"></span>
                 </div>
-                <a class="navbar-brand text-white-50 fs-20" href="/logout">Logout</a>
+
+
+                <div class="text-white me-auto d-inline-block">
+                    <span class="text-white" style="font-size: 1.5em">with roles: </span>
+                </div>
+
+
+                <div class="text-white me-auto d-inline-block">
+                    <span class="text-white" style="font-size: 1.5em" id="roleCurrentUser"></span>
+                </div>
+
             </div>
-        </nav>
-    </header>
+            <a class="navbar-brand text-white-50 fs-20" href="/logout">Logout</a>
+        </div>
+    </nav>
+</header>
 <!----------------------------------------------Основной контейнер----------------------------------------------------->
     <div class="d-flex align-items-start" style=" height: 93vh; background: #f0f0f0;">
 
@@ -104,6 +103,172 @@
                                     <tbody id="cardsUsers">
                                     </tbody>
                                 </table>
+
+                                <div class="modal fade" id="edit" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form id="formEdit">
+                                                <div class="modal-body text-center pt-3">
+                                                    <div class="container-fluid align-middle w-50">
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">ID</h6>
+                                                        <input type="text"
+                                                               readonly
+                                                               name="id"
+                                                               id="Edit_id"
+                                                               class="form-control"
+                                                               placeholder="ID">
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">Username</h6>
+                                                        <input type="text"
+                                                               name="username"
+                                                               id="Edit_username"
+                                                               class="form-control"
+                                                               placeholder="Username">
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">FirstName</h6>
+                                                        <input type="text"
+                                                               name="firstName"
+                                                               id="Edit_firstName"
+                                                               class="form-control"
+                                                               placeholder="FirstName">
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">LastName</h6>
+                                                        <input type="text"
+                                                               name="lastName"
+                                                               id="Edit_lastName"
+                                                               class="form-control"
+                                                               placeholder="LastName">
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">Age</h6>
+                                                        <input type="number"
+                                                               name="age"
+                                                               id="Edit_age"
+                                                               class="form-control"
+                                                               placeholder="Age">
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">Email</h6>
+                                                        <input type="email"
+                                                               name="email"
+                                                               id="Edit_email"
+                                                               class="form-control"
+                                                               placeholder="Email">
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">Password</h6>
+                                                        <input type="password"
+                                                               name="password"
+                                                               id="Edit_password"
+                                                               class="form-control"
+                                                               placeholder="Password">
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">Role</h6>
+                                                        <select size="2" name="roles" multiple
+                                                                class="form-control"
+                                                                id="Edit_rolesId" required>
+
+                                                            <option value="1">ADMIN</option>
+                                                            <option value="2">USER</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" id="closeEdit" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--модалка delete-->
+                                <div class="modal fade" id="delete" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Delete user</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form id="formDelete">
+                                                <div class="modal-body text-center pt-3">
+                                                    <div class="container-fluid align-middle w-50">
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">ID</h6>
+                                                        <input type="text"
+                                                               readonly
+                                                               name="id"
+                                                               id="Delete_id"
+                                                               class="form-control"
+                                                               placeholder="ID" disabled>
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">Username</h6>
+                                                        <input type="text"
+                                                               name="username"
+                                                               id="Delete_username"
+                                                               class="form-control"
+                                                               placeholder="Username" disabled>
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">FirstName</h6>
+                                                        <input type="text"
+                                                               name="firstName"
+                                                               id="Delete_firstName"
+                                                               class="form-control"
+                                                               placeholder="FirstName" disabled>
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">LastName</h6>
+                                                        <input type="text"
+                                                               name="lastName"
+                                                               id="Delete_lastName"
+                                                               class="form-control"
+                                                               placeholder="LastName" disabled>
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">Age</h6>
+                                                        <input type="number"
+                                                               name="age"
+                                                               id="Delete_age"
+                                                               class="form-control"
+                                                               placeholder="Age" disabled>
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">Email</h6>
+                                                        <input type="email"
+                                                               name="email"
+                                                               id="Delete_email"
+                                                               class="form-control"
+                                                               placeholder="Email" disabled>
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">Password</h6>
+                                                        <input type="password"
+                                                               name="password"
+                                                               id="Delete_password"
+                                                               class="form-control"
+                                                               placeholder="Password" disabled>
+
+                                                        <h6 class="card-title" style="margin: 5px 0; text-align: center">Role</h6>
+                                                        <select size="2" name="roles" multiple
+                                                                class="form-control"
+                                                                id="Delete_rolesId" required disabled>
+
+                                                            <option value="1">ADMIN</option>
+                                                            <option value="2">USER</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" id="closeDelete" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close
+                                                    </button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -173,8 +338,8 @@
                                         <select size="2" multiple
                                                 class="form-control"
                                                 id="rolesId" name="roles" required>
-                                            <option value="1">USER</option>
-                                            <option value="2">ADMIN</option>
+                                            <option value="1">ADMIN</option>
+                                            <option value="2">USER</option>
                                         </select>
 
                                         <button style="margin: 10px 0" type="submit" class="btn btn-lg btn-success">Add new user</button>
@@ -192,9 +357,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
-<script type="module" src="../static/allUsers.js"></script>
-<script type="module" src="../static/userSave.js"></script>
-<script type="module" src="../static/userGet.js"></script>
+<script  src="../static/allUsers.js"></script>
+<script  src="../static/userSave.js"></script>
+<script  src="../static/userGet.js"></script>
+<script  src="../static/userUp.js"></script>
+<script  src="../static/userRemove.js"></script>
+<script  src="../static/modal.js"></script>
 
 
 </body>

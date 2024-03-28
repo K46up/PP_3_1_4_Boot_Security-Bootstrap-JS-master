@@ -1,8 +1,7 @@
 
-const API = "/userApi/auth";
 const btnAdmin = document.getElementById('btnAdmin');
 function getCurrentUser() {
-    fetch(API)
+    fetch("/userApi/auth")
         .then(res => res.json())
         .then(user => {
             const roles = user.roles.map(role => role.name.replace('ROLE_', '')).join(', ');

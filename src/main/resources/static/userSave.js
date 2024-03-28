@@ -1,6 +1,4 @@
-import getTableUser from './allUsers.js';
 
-const API = "/adminApi/userSave";
 const homeTab = document.getElementById('nav-home-tab');
 let form = document.forms["create"];
 userSave();
@@ -21,7 +19,7 @@ function userSave() {
         }
         const age = +form.age.value;
 
-        fetch(API, {
+        fetch("/adminApi/userSave", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -43,7 +41,7 @@ function userSave() {
 
             form.reset();
             homeTab.click();
-            getTableUser();
+            getUsers();
 
         });
 
